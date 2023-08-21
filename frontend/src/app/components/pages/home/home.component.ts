@@ -16,8 +16,11 @@ export class HomeComponent implements OnInit {
       if (params.searchTerm) {
         this.foods = this.foodService.getFoodBySearchTerm(params.searchTerm);
         console.log(this.foods);
-      }else{
-        this.foods = this.foodService.retrieveAllFoods();  
+      } else if (params.tag) {
+        this.foods = this.foodService.retriveAllFoodByTagMethod(params.tag);
+        console.log(this.foods);
+      } else {
+        this.foods = this.foodService.retrieveAllFoods();
       }
     });
   }
