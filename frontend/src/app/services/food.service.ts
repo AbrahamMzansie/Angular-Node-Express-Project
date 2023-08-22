@@ -30,7 +30,6 @@ export class FoodService {
   }
 
   retriveAllFoodByTagMethod(tagName: string): Food[] {
-    console.log(tagName)
     return tagName === 'All'
       ? this.retrieveAllFoods()
       : this.retrieveAllFoods().filter((food) => food?.tags?.includes(tagName));
