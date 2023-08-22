@@ -14,7 +14,7 @@ export class FoodDetailsComponent {
   constructor(activated: ActivatedRoute, foodService: FoodService ,private router:Router, private cartService:CartService) {
     activated.params.subscribe((params) => {
       if (params.foodId) {
-        this.food = foodService.getFoodById(params.foodId);
+     foodService.getFoodById(params.foodId).subscribe(serverData=>this.food = serverData);
       }
     });
   }
