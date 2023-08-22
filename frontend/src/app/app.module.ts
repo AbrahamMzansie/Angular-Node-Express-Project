@@ -10,6 +10,9 @@ import { HomeComponent } from './components/pages/home/home.component';
 import { SearchComponent } from './components/partials/search/search.component';
 import { FoodDetailsComponent } from './components/pages/food-details/food-details.component';
 import { TagsComponent } from './components/partials/tags/tags.component';
+import { CartComponent } from './components/pages/cart/cart.component';
+import { TitleComponent } from './components/partials/title/title.component';
+import { NotFoundComponent } from './components/partials/not-found/not-found.component';
 
 
 
@@ -20,7 +23,10 @@ import { TagsComponent } from './components/partials/tags/tags.component';
     HomeComponent,
     SearchComponent,
     FoodDetailsComponent,
-    TagsComponent ,
+    TagsComponent,
+    CartComponent,
+    TitleComponent,
+    NotFoundComponent ,
    
   ],
   imports: [
