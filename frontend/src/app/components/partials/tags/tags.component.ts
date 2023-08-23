@@ -12,7 +12,9 @@ export class TagsComponent implements OnInit {
   constructor(foodService: FoodService) {
     foodService
       .retriveAllTags()
-      .subscribe((serverTags) => (this.tags = serverTags));
+      .subscribe((serverTags) =>{
+        this.tags = serverTags;
+      });
   }
 
   ngOnInit(): void {}

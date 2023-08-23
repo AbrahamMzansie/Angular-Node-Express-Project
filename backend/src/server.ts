@@ -22,20 +22,22 @@ app.get("/api/foods/search/:searchTerm", (req, res) => {
   res.send(foods);
 });
 
-app.get("/api/foods/:foodId", (req, res) => {
+app.get("/api/foods/tags", (req, res) => {  
+  res.send(sample_tags);
+});
+
+
+app.get("/api/foods/:foodId", (req, res) => { 
     const foodId = req.params.foodId;
     const foods = sample_foods.find((food) => food.id === foodId);
     res.send(foods);
   });
 
-app.get("/api/foods/tags", (req, res) => {
-  res.send(sample_tags);
-});
 
-app.get("/api/foods/tags/:tagName", (req, res) => {
+app.get("/api/foods/tags/:tagName", (req, res) => { 
   const tagData = req.params.tagName;
   const foods: any =
-    sample_tags.filter((food) => food?.tags?.includes(tagData));
+    sample_foods.filter((food) => food?.tags?.includes(tagData));    
   res.send(foods);
 });
 

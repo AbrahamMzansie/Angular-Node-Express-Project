@@ -19,15 +19,15 @@ export class HomeComponent implements OnInit {
         foodObservable = this.foodService.getFoodBySearchTerm(
           params.searchTerm
         );
-        console.log(this.foods);
       } else if (params.tag) {
         foodObservable = this.foodService.retriveAllFoodByTagMethod(params.tag);
-        console.log(this.foods);
       } else {
         foodObservable = this.foodService.retrieveAllFoods();
-        console.log(foodObservable);
       }
-      foodObservable.subscribe((serverFoods) => (this.foods = serverFoods));
+      foodObservable.subscribe((serverFoods) =>{
+       
+        this.foods = serverFoods
+      } );
     });
   }
 
