@@ -3,19 +3,21 @@
     <a routerLink="/" class="logo"> Online Food Stroe </a>
     <nav>
       <ul>
-        <li>
+        <li *ngIf="!user.token">
           <a routerLink="/login" class="logo">Login</a>
         </li>
-        <li class="menu-container">
-          <a routerLink="/dashboard">Abraham Nkomo</a>
+        <li *ngIf="user.token" class="menu-container">
+          <a routerLink="/dashboard">{{ user.name }}</a>
           <div class="menu">
             <a routerLink="/profile">Profile</a>
             <a routerLink="/orders">Orders</a>
-            <a>LogOut</a>
+            <a (click)="logOut()">LogOut</a>
           </div>
         </li>
         <li>
-          <a routerLink="/cart">Cart<span *ngIf="qty>0">{{qty}}</span> </a>
+          <a routerLink="/cart"
+            >Cart<span *ngIf="qty > 0">{{ qty }}</span>
+          </a>
         </li>
       </ul>
     </nav>

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RatingModule } from 'ng-starrating';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxStarRatingModule } from 'ngx-star-rating';
 import {HttpClientModule} from "@angular/common/http";
 
@@ -16,6 +17,10 @@ import { TitleComponent } from './components/partials/title/title.component';
 import { NotFoundComponent } from './components/partials/not-found/not-found.component';
 import { LoginComponent } from './components/pages/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { InputContainerComponent } from './components/partials/input-container/input-container.component';
+import { InputValidationComponent } from './components/partials/input-validation/input-validation.component';
+import { TextInputComponent } from './components/partials/text-input/text-input.component';
+import { DefaultButtonComponent } from './components/partials/default-button/default-button.component';
 
 
 
@@ -30,7 +35,11 @@ import { ReactiveFormsModule } from '@angular/forms';
     CartComponent,
     TitleComponent,
     NotFoundComponent,
-    LoginComponent ,
+    LoginComponent,
+    InputContainerComponent,
+    InputValidationComponent,
+    TextInputComponent,
+    DefaultButtonComponent ,
    
   ],
   imports: [
@@ -38,7 +47,13 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     NgxStarRatingModule,
    HttpClientModule,
-   ReactiveFormsModule
+   ReactiveFormsModule,
+   BrowserAnimationsModule, 
+    ToastrModule.forRoot({
+      timeOut : 3000,
+      positionClass :"toast-bottom-right",
+      newestOnTop : false,
+    }), 
   ],
   providers: [],
   bootstrap: [AppComponent]

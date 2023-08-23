@@ -1,0 +1,40 @@
+
+.container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin-top: 3rem;
+  }
+  
+  .details{
+    width: 28rem;
+  }
+  
+  form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .error-list{
+    color: red;
+  }
+  
+  .register{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 2rem;
+  margin: 3rem auto;
+  padding: 1.4rem;
+  width: 50%;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
