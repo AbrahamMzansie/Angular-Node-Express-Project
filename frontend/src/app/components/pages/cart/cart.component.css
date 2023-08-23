@@ -15,6 +15,7 @@ ul {
   list-style: none;
   margin: 0.5rem;
   padding: 0;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
 ul li {
@@ -72,6 +73,7 @@ li .remove-item-button:hover {
   border-radius: 1rem;
   padding: 0.5rem;
   margin: 0.5rem;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 .checkout > div {
   font-size: 1.4rem;
