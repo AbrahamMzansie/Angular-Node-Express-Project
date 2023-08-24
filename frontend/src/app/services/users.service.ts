@@ -29,6 +29,7 @@ export class UsersService {
     return this.http.post<User>(USERS_LOGIN_URL, userLogin).pipe(
       tap({
         next: (user: User) => {
+          console.log("MMMMMMM" , user);
           this.setUserLocalStorage(user);
           this.userSubject.next(user);
           this.toastService.success(

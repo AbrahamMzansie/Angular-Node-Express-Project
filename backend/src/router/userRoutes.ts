@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { sample_users } from "../data";
 import jwt from "jsonwebtoken";
-import { UserModel } from "../models/userModel";
+import { User, UserModel } from "../models/userModel";
 import expressAsyncHandler from "express-async-handler";
 
 const userRouter = Router();
@@ -19,21 +19,33 @@ userRouter.get(
   })
 );
 
-userRouter.post("/login", (req, res) => {
-  console.log(req.body);
-  const userInfo = req.body;
-  const userData = sample_users.find(
-    (user) =>
-      user.email === userInfo.email && user.password === userInfo.password
-  );
-  if (userData) {
-    res.send(generateToken(userData));
-  } else {
-    res.status(400).send("User Not found");
-  }
-});
+userRouter.post(
+  "/login",
+  expressAsyncHandler(async (req, res) => {
+    const { email, password } = req.body;
+    const user = await UserModel.findOne({ email ,password });
+    if (user) {     
+      res.send(generateToken(user));
+    } else {
+      res.status(400).send("User email or Password is invalid");
+    }
+  })
+);
 
-const generateToken = (user: any) => {
+userRouter.post(
+  "/register",
+  expressAsyncHandler(async (req, res) => {
+    const { email, password , name , address } = req.body;
+    const user = await UserModel.findOne({ email ,password });
+    if (user) {     
+      res.send(generateToken(user));
+    } else {
+      res.status(400).send("User email or Password is invalid");
+    }
+  })
+);
+
+const generateToken = (user:any) => {
   const token = jwt.sign(
     {
       email: user.email,
@@ -44,7 +56,9 @@ const generateToken = (user: any) => {
       expiresIn: "30d",
     }
   );
+  
   user.token = token;
+  console.log("WWWWWWWWWWWWWW",user);
   return user;
 };
 
