@@ -26,6 +26,9 @@ export class UsersService {
     localStorage.removeItem(USER_KEY);
     // window.location.reload();
   }
+ public get  currentUser():User{
+ return this.userSubject.value;
+  }
   login(userLogin: IUserLogin): Observable<User> {
     return this.http.post<User>(USERS_LOGIN_URL, userLogin).pipe(
       tap({
