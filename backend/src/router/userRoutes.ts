@@ -27,8 +27,8 @@ userRouter.post(
   expressAsyncHandler(async (req, res) => {
     const { email, password } = req.body;
     const user = await UserModel.findOne({ email, password });
-    if (user) {
-      res.send(generateToken(user));
+    if (user && (await bcrypt.compare(password, user.password))) {
+      res.status(200).send(generateToken(user));
     } else {
       res.status(400).send("User email or Password is invalid");
     }
@@ -49,7 +49,7 @@ userRouter.post(
     }
     const encryptedPassword = await bcrypt.hash(password, 10);
     const newUser: User = {
-      id: '',
+      id: new mongoose.Types.ObjectId(),
       name,
       email: email.toLowerCase(),
       password: encryptedPassword,
