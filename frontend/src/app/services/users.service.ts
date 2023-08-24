@@ -3,8 +3,9 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { User } from '../shared/models/user';
 import { IUserLogin } from '../shared/interface/IUserLogin';
 import { HttpClient } from '@angular/common/http';
-import { USERS_LOGIN_URL } from '../shared/constants/urls';
+import { USERS_LOGIN_URL, USERS_REGISTER_URL } from '../shared/constants/urls';
 import { ToastrService } from 'ngx-toastr';
+import { IUserRegister } from '../shared/interface/IUserRegister';
 
 const USER_KEY = 'User';
 @Injectable({
@@ -23,13 +24,12 @@ export class UsersService {
   logout(){
     this.userSubject.next(new User());
     localStorage.removeItem(USER_KEY);
-    window.location.reload();
+    // window.location.reload();
   }
   login(userLogin: IUserLogin): Observable<User> {
     return this.http.post<User>(USERS_LOGIN_URL, userLogin).pipe(
       tap({
-        next: (user: User) => {
-          console.log("MMMMMMM" , user);
+        next: (user: User) => {         
           this.setUserLocalStorage(user);
           this.userSubject.next(user);
           this.toastService.success(
@@ -39,6 +39,24 @@ export class UsersService {
         },
         error: (errorResponse: any) => {
           this.toastService.error(errorResponse.error, 'Login Failed');
+        },
+      })
+    );
+  }
+
+  register(registerUser:IUserRegister):Observable<User>{
+    return this.http.post<User>(USERS_REGISTER_URL, registerUser).pipe(
+      tap({
+        next: (user:User) => {         
+          this.setUserLocalStorage(user);
+          this.userSubject.next(user);
+          this.toastService.success(
+            `Registration was successful`,
+            'Register Succesful'
+          );
+        },
+        error: (errorResponse: any) => {
+          this.toastService.error(errorResponse.error, 'Registration Failed');
         },
       })
     );

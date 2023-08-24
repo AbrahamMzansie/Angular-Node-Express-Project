@@ -7,6 +7,7 @@ export interface User {
   name: string;
   address: string;
   isAdmin: boolean;
+  token? : string,
 }
 
 export const UserSchema = new Schema<User>(

@@ -28,6 +28,6 @@ export class HeaderComponent {
   }
   logOut() {
     this.userService.logout();
-    // this.router.navigateByUrl('/login');
+     this.router.navigateByUrl('/login');
   }
 }
