@@ -1,36 +1,105 @@
 import { Router } from "express";
 import { sample_foods, sample_tags } from "../data";
+import expressAsyncHandler from "express-async-handler";
+import { FoodModel } from "../models/foodModel";
 
 const foodRouter = Router();
 
-foodRouter.get("/", (req, res) => {
-  res.send(sample_foods);
-});
+foodRouter.get(
+  "/seed",
+  expressAsyncHandler(async (req, res) => {
+    const count = await FoodModel.countDocuments();
+    if (count > 0) {
+      res.send("Seed is already done");
+      return;
+    }
+    await FoodModel.create(sample_foods);
+    res.send("Seed is done");
+  })
+);
 
-foodRouter.get("/search/:searchTerm", (req, res) => {
-  const searchTerm = req.params.searchTerm;
-  const foods = sample_foods.filter((food) =>
-    food.name.toLowerCase().includes(searchTerm.toLocaleLowerCase())
-  );
-  res.send(foods);
-});
+foodRouter.get(
+  "/",
+  expressAsyncHandler(async (req, res) => {
+    const food = await FoodModel.find({});
+    if (food) {
+      res.status(200).send(food);
+    } else {
+      res.status(404).send("Food not found");
+    }
+  })
+);
 
-foodRouter.get("/tags", (req, res) => {
-  res.send(sample_tags);
-});
+foodRouter.get(
+  "/search/:searchTerm",
+  expressAsyncHandler(async (req, res) => {
+    const searchReg = new RegExp(req.params.searchTerm, "i");
+    const food = await FoodModel.find({ name: { $regex: searchReg } });
+    if (food) {
+      res.status(200).send(food);
+    } else {
+      res.status(404).send("Food not found");
+    }
+  })
+);
 
-foodRouter.get("/:foodId", (req, res) => {
-  const foodId = req.params.foodId;
-  const foods = sample_foods.find((food) => food.id === foodId);
-  res.send(foods);
-});
+foodRouter.get(
+  "/tags",
+  expressAsyncHandler(async (req, res) => {
+    const tags = await FoodModel.aggregate([
+      {
+        $unwind: "$tags",
+      },
+      {
+        $group: {
+          _id: "$tags",
+          count: { $sum: 1 },
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          name: "$_id",
+          count: "$count",
+        },
+      },
+    ]).sort({ count: -1 });
 
-foodRouter.get("/tags/:tagName", (req, res) => {
-  const tagData = req.params.tagName;
-  const foods: any = sample_foods.filter((food) =>
-    food?.tags?.includes(tagData)
-  );
-  res.send(foods);
-});
+    const all = {
+      name: "All",
+      count: await FoodModel.countDocuments(),
+    };
+    tags.unshift(all);
+    if (tags) {
+      res.status(200).send(tags);
+    } else {
+      res.status(404).send("Tags not found");
+    }
+  })
+);
+
+foodRouter.get(
+  "/:foodId",
+  expressAsyncHandler(async (req, res) => {
+    const food = await FoodModel.findById(req.params.foodId);
+    if (food) {
+      res.status(200).send(food);
+    } else {
+      res.status(404).send("Food not found");
+    }
+  })
+);
+
+foodRouter.get(
+  "/tags/:tagName",
+  expressAsyncHandler(async (req, res) => {
+    const food = await FoodModel.find({ tags: req.params.tagName });
+    if (food) {
+      res.status(200).send(food);
+    } else {
+      res.status(404).send("Food not found");
+    }
+  })
+);
 
 export default foodRouter;
