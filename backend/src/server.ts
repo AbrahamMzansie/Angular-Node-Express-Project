@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv"
 import foodRouter from "./router/foodRoutes";
 import userRouter from "./router/userRoutes";
+import orderRouter from "./router/orderRoutes";
 import { dbConnect } from "./configs/database";
 dotenv.config();
 dbConnect();
@@ -19,11 +20,7 @@ app.use(
 
 app.use("/api/foods", foodRouter);
 app.use("/api/users" , userRouter);
-
-
-
-
-
+app.use("/api/orders" , orderRouter);
 
 app.listen(process.env.PORT, () => {
   console.log(`Listening to port ${process.env.PORT}`);

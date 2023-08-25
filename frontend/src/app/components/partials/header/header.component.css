@@ -44,7 +44,7 @@ a span {
 }
 .menu {
   position: absolute;
-  z-index: 1;
+  z-index: 400000;
   background-color: whitesmoke;
   display : none;
 }

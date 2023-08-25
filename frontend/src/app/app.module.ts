@@ -4,7 +4,6 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxStarRatingModule } from 'ngx-star-rating';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/partials/header/header.component';
@@ -27,6 +26,8 @@ import { LoadingInterceptor } from './shared/interceptors/loading.interceptor';
 import { CheckOutComponent } from './components/pages/check-out/check-out.component';
 import { OrderItemsComponent } from './components/partials/order-items/order-items.component';
 import { MapComponent } from './components/partials/map/map.component';
+import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
+import { PaymentComponent } from './components/pages/payment/payment.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { MapComponent } from './components/partials/map/map.component';
     CheckOutComponent,
     OrderItemsComponent,
     MapComponent,
+    PaymentComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,6 +69,11 @@ import { MapComponent } from './components/partials/map/map.component';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoadingInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
       multi: true,
     },
   ],

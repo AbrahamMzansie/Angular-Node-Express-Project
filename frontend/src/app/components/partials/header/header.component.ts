@@ -28,6 +28,7 @@ export class HeaderComponent {
   }
   logOut() {
     this.userService.logout();
-     this.router.navigateByUrl('/login');
+    this.cartService.clearCart();
+     this.router.navigateByUrl('/');
   }
 }

@@ -24,7 +24,7 @@ export class UsersService {
   logout(){
     this.userSubject.next(new User());
     localStorage.removeItem(USER_KEY);
-    // window.location.reload();
+    window.location.reload();
   }
  public get  currentUser():User{
  return this.userSubject.value;
