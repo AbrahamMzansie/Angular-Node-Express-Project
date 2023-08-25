@@ -1,11 +1,19 @@
 <div class="container">
-    <div class="content">
-        <app-title title="Order Form" fontSize="1.6rem"></app-title>
-        <form [formGroup]="checkoutForm">
-            <text-input label="Name" [control]="fc.name"></text-input>
-            <text-input  label="Address" [control]="fc.address"></text-input>
-        </form>
-        <app-order-items [order]="order"></app-order-items>
+  <div class="content">
+    <app-title title="Order Form" fontSize="1.6rem"></app-title>
+    <form [formGroup]="checkoutForm">
+      <text-input label="Name" [control]="fc.name"></text-input>
+      <text-input label="Address" [control]="fc.address"></text-input>
+    </form>
+    <app-order-items [order]="order"></app-order-items>
+  </div>
+  <div class="map">
+    <app-title fontSize="1.6rem" title="Choose Your Location"> </app-title>
+    <app-map></app-map>
+  </div>
+  <div class="buttons-container">
+    <div class="buttons">
+      <button (click)="createOrder()">Go To Payment</button>
     </div>
-   
+  </div>
 </div>
