@@ -8,21 +8,27 @@ import { RegisterComponent } from './components/pages/register/register.componen
 import { CheckOutComponent } from './components/pages/check-out/check-out.component';
 import { AuthGuard } from './auth/guards/auth.guard';
 import { PaymentComponent } from './components/pages/payment/payment.component';
+import { TrackOrderComponent } from './components/pages/track-order/track-order.component';
 
 const routes: Routes = [
-  {path : "" , component : HomeComponent},
-  {path : "search/:searchTerm" , component : HomeComponent},
-  {path : "details/:foodId" , component : FoodDetailsComponent},
-  {path : "tag/:tag" , component : HomeComponent},
-  {path : "cart" , component : CartComponent},
-  {path : "login" , component : LoginComponent},
-  {path : "register" , component : RegisterComponent},
-  {path : "checkout" , component : CheckOutComponent , canActivate: [AuthGuard]},
-  {path : "payment" , component : PaymentComponent , canActivate: [AuthGuard]}
+  { path: '', component: HomeComponent },
+  { path: 'search/:searchTerm', component: HomeComponent },
+  { path: 'details/:foodId', component: FoodDetailsComponent },
+  { path: 'tag/:tag', component: HomeComponent },
+  { path: 'cart', component: CartComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'checkout', component: CheckOutComponent, canActivate: [AuthGuard] },
+  { path: 'payment', component: PaymentComponent, canActivate: [AuthGuard] },
+  {
+    path: 'track-order/:orderId',
+    component: TrackOrderComponent,
+    canActivate: [AuthGuard],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

@@ -53,8 +53,6 @@ export class CheckOutComponent implements OnInit {
 
     this.order.name = this.fc.name.value;
     this.order.address = this.fc.address.value;
-    console.log("XXXXXXXXXXXXXXXXX",this.order);
-
     this.orderService.createOrder(this.order).subscribe({
       next:(order) => {         
         this.toastrService.success(
